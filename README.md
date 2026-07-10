@@ -11,7 +11,6 @@ Part of the `wire*` family: themeable through the shared `data-wire-theme` attri
 - PHP 8.2+
 - Laravel 11 or 12
 - Alpine.js on the page
-- [edulazaro/wiremodal](https://github.com/edulazaro/wiremodal) 1.1+ (pulled automatically; its JS must be loaded)
 
 ## Installation
 
