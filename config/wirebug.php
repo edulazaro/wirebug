@@ -17,11 +17,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Posición del botón flotante
+    | Disparador y posición
     |--------------------------------------------------------------------------
-    | 'left' o 'right' (siempre abajo). Si conviven wirebug y wirecookies en
-    | la misma página, pon cada uno en una esquina.
+    | 'trigger':
+    |   - 'button': botón flotante cuadrado. 'position' = 'left'|'right'
+    |     (siempre esquina inferior).
+    |   - 'tab': pestaña pegada al borde de la pantalla. 'position' =
+    |     'bottom-right'|'bottom-left'|'top-right'|'top-left'.
+    | Si conviven wirebug y wirecookies en la misma página, pon cada uno en
+    | una esquina.
     */
+    'trigger'  => 'button',
     'position' => 'left',
 
     /*

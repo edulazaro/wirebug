@@ -3,6 +3,7 @@
 return [
     'title'               => 'Report a problem',
     'modal_title'         => 'Report a problem',
+    'tab_label'           => 'Feedback',
     'type_label'          => 'Type',
     'message_label'       => 'What happened?',
     'message_placeholder' => 'Tell us about the problem or your suggestion with as much detail as possible...',

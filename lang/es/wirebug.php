@@ -3,6 +3,7 @@
 return [
     'title'               => 'Informar de un problema',
     'modal_title'         => 'Informar de un problema',
+    'tab_label'           => 'Feedback',
     'type_label'          => 'Tipo',
     'message_label'       => '¿Qué ha pasado?',
     'message_placeholder' => 'Cuéntanos el problema o tu sugerencia con el máximo detalle posible...',

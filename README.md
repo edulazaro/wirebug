@@ -70,9 +70,15 @@ $report->reporter;                    // polymorphic: who sent it (User, Client.
 
 ```blade
 <x-wirebug position="right" title="Feedback" />
+
+{{-- Edge tab instead of the floating button --}}
+<x-wirebug trigger="tab" position="bottom-right" tab-label="Feedback" />
 ```
 
-Every visible string can be overridden by prop or via the published translations. `position` accepts `left` (default) or `right`.
+Every visible string can be overridden by prop or via the published translations. Two trigger styles:
+
+- `trigger="button"` (default): floating square button. `position` accepts `left` (default) or `right` (always bottom corner).
+- `trigger="tab"`: small labeled tab stuck flush to the screen edge. `position` accepts `bottom-right` (default), `bottom-left`, `top-right` or `top-left`.
 
 ### Config
 

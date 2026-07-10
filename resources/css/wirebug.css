@@ -53,6 +53,57 @@
 }
 
 /* =========================================================
+   Pestaña pegada al borde — alternativa al botón flotante
+   (trigger="tab"). Page-level como .wb-floating: estilo
+   explícito aquí y por tema abajo. Default neutro coherente
+   con el botón (blanco, borde gray-300, sharp).
+   ========================================================= */
+.wb-tab {
+    position: fixed;
+    z-index: 40;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #ffffff;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+}
+.wb-tab:hover {
+    color: #111827;
+    border-color: #111827;
+}
+.wb-tab-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+}
+/* Pegada abajo: sin borde inferior; pegada arriba: sin borde superior.
+   Solo se redondean las esquinas que no tocan el borde de la pantalla
+   (--wb-tab-radius lo fija cada tema; default sharp). */
+.wb-tab-bottom-right,
+.wb-tab-bottom-left {
+    bottom: 0;
+    border-bottom: 0;
+    border-radius: var(--wb-tab-radius, 0) var(--wb-tab-radius, 0) 0 0;
+}
+.wb-tab-top-right,
+.wb-tab-top-left {
+    top: 0;
+    border-top: 0;
+    border-radius: 0 0 var(--wb-tab-radius, 0) var(--wb-tab-radius, 0);
+}
+.wb-tab-bottom-right, .wb-tab-top-right { right: 1.5rem; }
+.wb-tab-bottom-left,  .wb-tab-top-left  { left: 1.5rem; }
+
+/* =========================================================
    Overlay de grabación — page-level como el botón flotante:
    wiremodal NO lo toca, look explícito aquí y por tema abajo.
    Píldora inferior centrada: punto rojo + contador + Detener.
@@ -435,6 +486,66 @@
 [data-wire-theme="gradient"] .wb-recorder-dot { background: #fecaca; }
 [data-wire-theme="gradient"] .wb-recorder-discard { color: rgba(255,255,255,0.7); }
 [data-wire-theme="gradient"] .wb-recorder-stop { background: #ffffff; color: #6d28d9; border-radius: 12px; }
+
+/* =========================================================
+   Pestaña por tema — page-level como .wb-floating: colores
+   explícitos por tema + radio de las esquinas exteriores
+   vía --wb-tab-radius.
+   ========================================================= */
+[data-wire-theme="studio"] .wb-tab {
+    --wb-tab-radius: 0;
+    background: #ffffff; color: #374151; border-color: #d1d5db;
+    font-family: "Sora", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+[data-wire-theme="studio"] .wb-tab:hover { color: #111827; border-color: #111827; }
+
+[data-wire-theme="chatgpt"] .wb-tab { --wb-tab-radius: 10px; background: #ffffff; color: #5d5d5d; border-color: #e5e5e5; }
+[data-wire-theme="chatgpt"] .wb-tab:hover { color: #0d0d0d; border-color: #0d0d0d; }
+
+[data-wire-theme="claude"] .wb-tab { --wb-tab-radius: 10px; background: #faf9f5; color: #6b6560; border-color: rgba(26,26,26,0.12); }
+[data-wire-theme="claude"] .wb-tab:hover { color: #1a1a1a; border-color: #1a1a1a; }
+
+[data-wire-theme="minimal"] .wb-tab { --wb-tab-radius: 0; background: #ffffff; color: #6b7280; border-color: #e5e7eb; box-shadow: none; }
+[data-wire-theme="minimal"] .wb-tab:hover { color: #0ea5e9; border-color: #0ea5e9; }
+
+[data-wire-theme="soft"] .wb-tab { --wb-tab-radius: 12px; background: #ffffff; color: #64748b; border-color: #e2e8f0; }
+[data-wire-theme="soft"] .wb-tab:hover { color: #1e293b; border-color: #1e293b; }
+
+[data-wire-theme="megaflow"] .wb-tab { --wb-tab-radius: 8px; background: #ffffff; color: #6b7280; border-color: rgba(0,0,0,0.1); }
+[data-wire-theme="megaflow"] .wb-tab:hover { color: #3b82f6; border-color: #3b82f6; }
+
+[data-wire-theme="brutalist"] .wb-tab { --wb-tab-radius: 4px; background: #ffffff; color: #0a0a0a; border: 2px solid #0a0a0a; box-shadow: 4px 4px 0 0 #0a0a0a; }
+[data-wire-theme="brutalist"] .wb-tab.wb-tab-bottom-right, [data-wire-theme="brutalist"] .wb-tab.wb-tab-bottom-left { border-bottom: 0; }
+[data-wire-theme="brutalist"] .wb-tab.wb-tab-top-right, [data-wire-theme="brutalist"] .wb-tab.wb-tab-top-left { border-top: 0; }
+
+[data-wire-theme="glass"] .wb-tab {
+    --wb-tab-radius: 12px;
+    background: rgba(255,255,255,0.55); color: #0f172a; border-color: rgba(255,255,255,0.5);
+    backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+[data-wire-theme="glass"] .wb-tab:hover { border-color: rgba(15,23,42,0.3); }
+
+[data-wire-theme="neon"] .wb-tab {
+    --wb-tab-radius: 4px;
+    background: #0a0a12; color: #22d3ee; border-color: #22d3ee;
+    box-shadow: 0 0 20px rgba(34,211,238,0.5);
+    font-family: ui-monospace, "JetBrains Mono", "Fira Code", monospace;
+}
+[data-wire-theme="neon"] .wb-tab:hover { color: #67e8f9; border-color: #67e8f9; }
+
+[data-wire-theme="synthwave"] .wb-tab {
+    --wb-tab-radius: 0;
+    background: linear-gradient(135deg, #1a0033, #2d0066); color: #ff00ff; border-color: #ff00ff;
+    box-shadow: 0 0 20px rgba(255,0,255,0.5);
+}
+[data-wire-theme="synthwave"] .wb-tab:hover { color: #ffffff; border-color: #ffffff; }
+
+[data-wire-theme="gradient"] .wb-tab {
+    --wb-tab-radius: 12px;
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #ffffff; border: 0;
+    box-shadow: 0 10px 30px rgba(139,92,246,0.4);
+}
+[data-wire-theme="gradient"] .wb-tab:hover { filter: brightness(1.05); }
 
 /* =========================================================
    Detalles por tema del contenido del modal (via --wire-*)

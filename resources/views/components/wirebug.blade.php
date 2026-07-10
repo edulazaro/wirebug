@@ -1,6 +1,8 @@
 @props([
+    'trigger' => null,
     'position' => null,
     'types' => null,
+    'tabLabel' => null,
 
     // Textos: null = se resuelven desde las traducciones (wirebug::wirebug.*).
     // Pasar cualquiera de estas props sobrescribe la traducción para ese string.
@@ -32,8 +34,20 @@
 ])
 
 @php
+    $trigger  = $trigger  ?? config('wirebug.trigger', 'button');
     $position = $position ?? config('wirebug.position', 'left');
     $types    = $types    ?? config('wirebug.types', []);
+
+    // Posiciones válidas por disparador; fallback al default de cada modo.
+    if ($trigger === 'tab') {
+        $position = in_array($position, ['bottom-right', 'bottom-left', 'top-right', 'top-left'], true)
+            ? $position
+            : 'bottom-right';
+    } else {
+        $position = in_array($position, ['left', 'right'], true) ? $position : 'left';
+    }
+
+    $tabLabel = $tabLabel ?? __('wirebug::wirebug.tab_label');
 
     $askEmail = config('wirebug.ask_guest_email', true) && ! auth()->check();
 
@@ -233,20 +247,39 @@
     }"
     x-cloak
 >
-    {{-- Botón flotante (oculto mientras se graba: el overlay toma su lugar) --}}
-    <button
-        x-show="!recording"
-        @click="open()"
-        type="button"
-        aria-label="{{ $title }}"
-        title="{{ $title }}"
-        class="wb-floating {{ $position === 'right' ? 'wb-floating-right' : 'wb-floating-left' }}"
-    >
-        <svg class="wb-floating-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 20a5 5 0 0 0 5-5v-3a5 5 0 0 0-10 0v3a5 5 0 0 0 5 5z"/>
-            <path stroke-linecap="round" d="M9.5 8.5a2.5 2.5 0 0 1 5 0M12 20v-8M7 13H4.5M19.5 13H17M7.5 9.5 5.5 7.5M16.5 9.5l2-2M7.5 17l-2 2M16.5 17l2 2"/>
-        </svg>
-    </button>
+    {{-- Disparador (oculto mientras se graba: el overlay toma su lugar) --}}
+    @if($trigger === 'tab')
+        {{-- Pestaña pegada al borde --}}
+        <button
+            x-show="!recording"
+            @click="open()"
+            type="button"
+            aria-label="{{ $title }}"
+            title="{{ $title }}"
+            class="wb-tab wb-tab-{{ $position }}"
+        >
+            <svg class="wb-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 20a5 5 0 0 0 5-5v-3a5 5 0 0 0-10 0v3a5 5 0 0 0 5 5z"/>
+                <path stroke-linecap="round" d="M9.5 8.5a2.5 2.5 0 0 1 5 0M12 20v-8M7 13H4.5M19.5 13H17M7.5 9.5 5.5 7.5M16.5 9.5l2-2M7.5 17l-2 2M16.5 17l2 2"/>
+            </svg>
+            {{ $tabLabel }}
+        </button>
+    @else
+        {{-- Botón flotante cuadrado --}}
+        <button
+            x-show="!recording"
+            @click="open()"
+            type="button"
+            aria-label="{{ $title }}"
+            title="{{ $title }}"
+            class="wb-floating {{ $position === 'right' ? 'wb-floating-right' : 'wb-floating-left' }}"
+        >
+            <svg class="wb-floating-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 20a5 5 0 0 0 5-5v-3a5 5 0 0 0-10 0v3a5 5 0 0 0 5 5z"/>
+                <path stroke-linecap="round" d="M9.5 8.5a2.5 2.5 0 0 1 5 0M12 20v-8M7 13H4.5M19.5 13H17M7.5 9.5 5.5 7.5M16.5 9.5l2-2M7.5 17l-2 2M16.5 17l2 2"/>
+            </svg>
+        </button>
+    @endif
 
     {{-- Overlay de grabación: elemento del DOM de la propia app (page-level),
          visible mientras se graba con el modal cerrado. --}}
