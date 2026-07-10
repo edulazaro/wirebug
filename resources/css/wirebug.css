@@ -1,0 +1,305 @@
+/* =========================================================
+   wirebug — design tokens
+   Hereda los meta-tokens --wire-* de la familia (wiremodal,
+   wiretoast, wirecookies). El consumidor solo necesita setear
+   data-wire-theme="X" en <html>; el widget queda visualmente
+   coherente con modales y toasts.
+   ========================================================= */
+.wb-root {
+    --wb-bg:        var(--wire-bg, #ffffff);
+    --wb-bg-alt:    var(--wire-bg-elevated, #ffffff);
+    --wb-text:      var(--wire-text, #111827);
+    --wb-text-muted:var(--wire-text-muted, #6b7280);
+    --wb-border:    var(--wire-border, #e5e7eb);
+    --wb-accent:    var(--wire-accent, #111827);
+    --wb-radius:    var(--wire-radius, 8px);
+    --wb-shadow:    var(--wire-shadow, 0 6px 20px rgba(0,0,0,0.08));
+    --wb-font:      var(--wire-font, system-ui, sans-serif);
+}
+
+/* =========================================================
+   Botón flotante — vive sobre la PÁGINA, no dentro del modal,
+   así que wiremodal NO lo estiliza: su look se define AQUÍ,
+   explícito y POR TEMA (abajo, sección de temas). Esta base es
+   el default neutro (cuadrado blanco, borde gray-300, icono
+   gray-700, sharp, shadow-lg). Para cambiarlo, pisa .wb-floating.
+   ========================================================= */
+.wb-floating {
+    position: fixed;
+    bottom: 1rem;
+    z-index: 40;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #374151;            /* gray-700 */
+    border: 1px solid #d1d5db; /* gray-300 */
+    border-radius: 0;          /* sharp */
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+}
+.wb-floating:hover {
+    color: #111827;            /* gray-900 */
+    border-color: #111827;
+}
+.wb-floating-left  { left: 1rem; }
+.wb-floating-right { right: 1rem; }
+.wb-floating-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* =========================================================
+   Formulario dentro del modal — vive DENTRO de wiremodal, así
+   que sigue su tema vía --wire-* (esto NO es page-level).
+   ========================================================= */
+.wb-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-family: var(--wb-font);
+}
+.wb-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+.wb-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--wb-text);
+}
+
+.wb-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.wb-pill {
+    padding: 0.375rem 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-family: inherit;
+    color: var(--wb-text-muted);
+    background: var(--wb-bg);
+    border: 1px solid var(--wb-border);
+    border-radius: var(--wb-radius);
+    cursor: pointer;
+    transition: color .15s, border-color .15s, background .15s;
+}
+.wb-pill:hover {
+    color: var(--wb-text);
+    border-color: var(--wb-text);
+}
+.wb-pill-active,
+.wb-pill-active:hover {
+    color: var(--wb-bg);
+    background: var(--wb-accent);
+    border-color: var(--wb-accent);
+}
+
+.wb-textarea,
+.wb-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-family: inherit;
+    color: var(--wb-text);
+    background: var(--wb-bg);
+    border: 1px solid var(--wb-border);
+    border-radius: var(--wb-radius);
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+    resize: vertical;
+}
+.wb-textarea::placeholder,
+.wb-input::placeholder {
+    color: var(--wb-text-muted);
+}
+.wb-textarea:focus,
+.wb-input:focus {
+    border-color: var(--wb-accent);
+    box-shadow: 0 0 0 1px var(--wb-accent);
+}
+
+.wb-error {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: #dc2626;
+}
+
+/* =========================================================
+   Confirmación de envío
+   ========================================================= */
+.wb-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem;
+    font-family: var(--wb-font);
+}
+.wb-success-icon {
+    width: 3rem;
+    height: 3rem;
+    color: var(--wb-accent);
+    margin-bottom: 0.25rem;
+}
+.wb-success-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 800;
+    color: var(--wb-text);
+}
+.wb-success-description {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--wb-text-muted);
+}
+
+/* =========================================================
+   Botones del footer
+   ========================================================= */
+.wb-modal-actions {
+    width: 100%;
+}
+.wb-modal-actions-inner {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+.wb-btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: var(--wb-font);
+    border-radius: var(--wb-radius);
+    cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s, box-shadow .15s, transform .15s;
+    border: 1px solid transparent;
+}
+.wb-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.wb-btn-primary {
+    background: var(--wb-accent);
+    color: var(--wb-bg);
+}
+.wb-btn-primary:hover:not(:disabled) { filter: brightness(0.9); }
+
+.wb-btn-muted {
+    background: color-mix(in srgb, var(--wb-border) 50%, var(--wb-bg));
+    color: var(--wb-text);
+}
+.wb-btn-muted:hover { filter: brightness(0.95); }
+
+/* =========================================================
+   Theme overrides — el BOTÓN FLOTANTE es page-level: wiremodal
+   NO lo toca, así que su estilo se define AQUÍ, explícito y POR
+   TEMA (sin --wire-*). Cubre TODOS los temas wire*. El form y
+   los botones viven dentro del modal, así que siguen el tema de
+   wiremodal (--wire-*, arriba).
+   ========================================================= */
+
+/* ===== studio: legal SaaS, gris-900, sharp (idéntico a Crowd Legal) ===== */
+[data-wire-theme="studio"] .wb-floating {
+    background: #ffffff; color: #374151; border-color: #d1d5db; border-radius: 0;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+[data-wire-theme="studio"] .wb-floating:hover { color: #111827; border-color: #111827; }
+
+/* ===== chatgpt: neutro limpio, acento verde, redondeado ===== */
+[data-wire-theme="chatgpt"] .wb-floating {
+    background: #ffffff; color: #5d5d5d; border-color: #e5e5e5; border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+[data-wire-theme="chatgpt"] .wb-floating:hover { color: #0d0d0d; border-color: #0d0d0d; }
+
+/* ===== claude: crema cálido, terracota ===== */
+[data-wire-theme="claude"] .wb-floating {
+    background: #faf9f5; color: #6b6560; border-color: rgba(26,26,26,0.12); border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(26,26,26,0.08);
+}
+[data-wire-theme="claude"] .wb-floating:hover { color: #1a1a1a; border-color: #1a1a1a; }
+
+/* ===== minimal: plano, sin sombra, acento sky, sharp ===== */
+[data-wire-theme="minimal"] .wb-floating {
+    background: #ffffff; color: #6b7280; border-color: #e5e7eb; border-radius: 0; box-shadow: none;
+}
+[data-wire-theme="minimal"] .wb-floating:hover { color: #0ea5e9; border-color: #0ea5e9; }
+
+/* ===== soft: fondo tintado, acento índigo, muy redondeado ===== */
+[data-wire-theme="soft"] .wb-floating {
+    background: #ffffff; color: #64748b; border-color: #e2e8f0; border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(15,23,42,0.06);
+}
+[data-wire-theme="soft"] .wb-floating:hover { color: #1e293b; border-color: #1e293b; }
+
+/* ===== megaflow: Flowbite, acento azul, redondeo 8 ===== */
+[data-wire-theme="megaflow"] .wb-floating {
+    background: #ffffff; color: #6b7280; border-color: rgba(0,0,0,0.1); border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+[data-wire-theme="megaflow"] .wb-floating:hover { color: #3b82f6; border-color: #3b82f6; }
+
+/* ===== brutalist: borde negro grueso + sombra dura desplazada ===== */
+[data-wire-theme="brutalist"] .wb-floating {
+    background: #ffffff; color: #0a0a0a; border: 2px solid #0a0a0a; border-radius: 4px;
+    box-shadow: 4px 4px 0 0 #0a0a0a;
+}
+[data-wire-theme="brutalist"] .wb-floating:hover { color: #0a0a0a; border-color: #0a0a0a; box-shadow: 6px 6px 0 0 #0a0a0a; }
+
+/* ===== glass: cristal esmerilado (backdrop blur) ===== */
+[data-wire-theme="glass"] .wb-floating {
+    background: rgba(255,255,255,0.55); color: #0f172a; border: 1px solid rgba(255,255,255,0.5); border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(15,23,42,0.18);
+    backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+[data-wire-theme="glass"] .wb-floating:hover { color: #0f172a; border-color: rgba(15,23,42,0.3); }
+
+/* ===== neon: panel oscuro, glow cian ===== */
+[data-wire-theme="neon"] .wb-floating {
+    background: #0a0a12; color: #22d3ee; border: 1px solid #22d3ee; border-radius: 4px;
+    box-shadow: 0 0 20px rgba(34,211,238,0.5), inset 0 0 12px rgba(34,211,238,0.1);
+}
+[data-wire-theme="neon"] .wb-floating:hover { color: #67e8f9; border-color: #67e8f9; box-shadow: 0 0 28px rgba(34,211,238,0.7); }
+
+/* ===== synthwave: degradado púrpura, magenta, glow ===== */
+[data-wire-theme="synthwave"] .wb-floating {
+    background: linear-gradient(135deg, #1a0033, #2d0066); color: #ff00ff; border: 1px solid #ff00ff; border-radius: 0;
+    box-shadow: 0 0 20px rgba(255,0,255,0.5);
+}
+[data-wire-theme="synthwave"] .wb-floating:hover { color: #ffffff; border-color: #ffffff; }
+
+/* ===== gradient: panel violeta degradado, texto blanco ===== */
+[data-wire-theme="gradient"] .wb-floating {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #ffffff; border: 0; border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(139,92,246,0.4);
+}
+[data-wire-theme="gradient"] .wb-floating:hover { color: #ffffff; filter: brightness(1.05); }
+
+/* =========================================================
+   Detalles por tema del contenido del modal (via --wire-*)
+   ========================================================= */
+[data-wire-theme="brutalist"] .wb-pill,
+[data-wire-theme="brutalist"] .wb-textarea,
+[data-wire-theme="brutalist"] .wb-input {
+    border: 2px solid var(--wire-text);
+}
+[data-wire-theme="brutalist"] .wb-pill-active {
+    box-shadow: 3px 3px 0 0 var(--wire-text);
+}
+[data-wire-theme="neon"] .wb-form,
+[data-wire-theme="neon"] .wb-success {
+    font-family: ui-monospace, "JetBrains Mono", "Fira Code", monospace;
+    letter-spacing: 0.3px;
+}
+[data-wire-theme="claude"] .wb-textarea,
+[data-wire-theme="claude"] .wb-input {
+    letter-spacing: -0.005em;
+}

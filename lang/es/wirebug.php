@@ -1,0 +1,29 @@
+<?php
+
+return [
+    'title'               => 'Informar de un problema',
+    'modal_title'         => 'Informar de un problema',
+    'type_label'          => 'Tipo',
+    'message_label'       => '¿Qué ha pasado?',
+    'message_placeholder' => 'Cuéntanos el problema o tu sugerencia con el máximo detalle posible...',
+    'email_label'         => 'Email (opcional)',
+    'email_placeholder'   => 'tu@email.com',
+    'send'                => 'Enviar',
+    'sending'             => 'Enviando...',
+    'cancel'              => 'Cancelar',
+    'close'               => 'Cerrar',
+    'success_title'       => '¡Gracias!',
+    'success_description' => 'Hemos recibido tu mensaje. Lo revisaremos lo antes posible.',
+    'error'               => 'No se pudo enviar el mensaje. Inténtalo de nuevo en unos segundos.',
+
+    /*
+    | Label de cada tipo. Las claves coinciden con las de
+    | `config('wirebug.types')`. Un proyecto puede sobrescribir el label
+    | por tipo en el config; si no, se usan estos.
+    */
+    'types' => [
+        'bug'   => 'Error',
+        'idea'  => 'Sugerencia',
+        'other' => 'Otro',
+    ],
+];
