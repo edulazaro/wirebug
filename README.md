@@ -78,7 +78,7 @@ $report->reporter;                    // polymorphic: who sent it (User, Client.
 Every visible string can be overridden by prop or via the published translations. Two trigger styles:
 
 - `trigger="button"` (default): floating square button. `position` accepts `left` (default) or `right` (always bottom corner).
-- `trigger="tab"`: small labeled tab stuck flush to the screen edge. `position` accepts `bottom-right` (default), `bottom-left`, `top-right` or `top-left`.
+- `trigger="tab"`: small labeled tab stuck flush to the screen edge. `position` accepts `bottom-right` (default), `bottom-left`, `top-right` or `top-left`. On viewports under 640px the label hides and only the icon shows. Label text via `tab-label` prop or the `tab_label` translation.
 
 ### Config
 
