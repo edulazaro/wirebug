@@ -65,6 +65,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Grabación de pantalla
+    |--------------------------------------------------------------------------
+    | Graba con getDisplayMedia + MediaRecorder (nativo del navegador, cero
+    | coste hasta que el usuario pulsa grabar). El modal se cierra durante la
+    | grabación y queda un overlay con contador y botón de detener; al parar,
+    | el vídeo (WebM/MP4) se adjunta al reporte y va al mismo disco que la
+    | captura. El botón solo aparece en navegadores compatibles (desktop).
+    */
+    'recording' => [
+        'enabled'     => true,
+        'max_seconds' => 90,
+        'max_kb'      => 25600,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Contexto capturado automáticamente
     |--------------------------------------------------------------------------
     | Además del mensaje, cada reporte guarda contexto técnico sin que el

@@ -25,14 +25,28 @@ class WireBugController
                 'mimes:jpg,jpeg,png,gif,webp',
                 'max:' . (int) config('wirebug.uploads.max_kb', 5120),
             ],
+            'recording' => [
+                'nullable',
+                'file',
+                'mimes:webm,mp4',
+                'max:' . (int) config('wirebug.recording.max_kb', 25600),
+            ],
         ]);
 
         $capture = config('wirebug.capture_context', true);
 
         $screenshotPath = null;
+        $recordingPath = null;
 
         if ($request->hasFile('screenshot')) {
             $screenshotPath = $request->file('screenshot')->store(
+                config('wirebug.uploads.path', 'wirebug'),
+                config('wirebug.uploads.disk', 'local')
+            );
+        }
+
+        if ($request->hasFile('recording')) {
+            $recordingPath = $request->file('recording')->store(
                 config('wirebug.uploads.path', 'wirebug'),
                 config('wirebug.uploads.disk', 'local')
             );
@@ -45,6 +59,7 @@ class WireBugController
             'steps'           => $validated['steps'] ?? null,
             'email'           => $validated['email'] ?? null,
             'screenshot_path' => $screenshotPath,
+            'recording_path'  => $recordingPath,
             'url'             => $capture ? ($validated['url'] ?? null) : null,
             'user_agent'      => $capture ? substr((string) $request->userAgent(), 0, 512) : null,
             'locale'          => $capture ? app()->getLocale() : null,
