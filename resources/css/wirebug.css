@@ -85,6 +85,11 @@
     width: 0.875rem;
     height: 0.875rem;
 }
+/* En móvil la pestaña queda solo con el icono, para ocupar lo mínimo. */
+@media (max-width: 640px) {
+    .wb-tab-label { display: none; }
+    .wb-tab { padding: 0.375rem 0.625rem; }
+}
 /* Pegada abajo: sin borde inferior; pegada arriba: sin borde superior.
    Solo se redondean las esquinas que no tocan el borde de la pantalla
    (--wb-tab-radius lo fija cada tema; default sharp). */

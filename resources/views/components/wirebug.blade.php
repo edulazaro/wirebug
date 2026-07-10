@@ -262,7 +262,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 20a5 5 0 0 0 5-5v-3a5 5 0 0 0-10 0v3a5 5 0 0 0 5 5z"/>
                 <path stroke-linecap="round" d="M9.5 8.5a2.5 2.5 0 0 1 5 0M12 20v-8M7 13H4.5M19.5 13H17M7.5 9.5 5.5 7.5M16.5 9.5l2-2M7.5 17l-2 2M16.5 17l2 2"/>
             </svg>
-            {{ $tabLabel }}
+            <span class="wb-tab-label">{{ $tabLabel }}</span>
         </button>
     @else
         {{-- Botón flotante cuadrado --}}
