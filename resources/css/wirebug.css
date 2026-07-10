@@ -384,7 +384,30 @@
     background: #ffffff; border-color: #d1d5db; border-radius: 0;
     font-family: "Sora", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
-[data-wire-theme="studio"] .wb-recorder-stop { background: #111827; color: #ffffff; border-radius: 0; }
+[data-wire-theme="studio"] .wb-recorder-stop { background: #111827; color: #ffffff; border-radius: 6px; }
+[data-wire-theme="studio"] .wb-recorder-stop:hover { background: #1f2937; filter: none; }
+
+/* Botones del modal en studio: espejo del <x-button> de Crowd
+   (rounded-md, py-2 px-4 text-sm font-medium; primario gray-900 →
+   hover gray-800; secundario blanco borde gray-300 → hover gray-50). */
+[data-wire-theme="studio"] .wb-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 6px;
+}
+[data-wire-theme="studio"] .wb-btn-primary { background: #111827; color: #ffffff; }
+[data-wire-theme="studio"] .wb-btn-primary:hover:not(:disabled) { background: #1f2937; filter: none; }
+[data-wire-theme="studio"] .wb-btn-muted {
+    background: #ffffff;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+[data-wire-theme="studio"] .wb-btn-muted:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+    filter: none;
+}
 
 /* ===== chatgpt: neutro limpio, acento verde, redondeado ===== */
 [data-wire-theme="chatgpt"] .wb-floating {
