@@ -126,7 +126,11 @@
             this.recorderStream = stream;
             this.recorderChunks = [];
             this.discarded = false;
-            this.recorder = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
+            // Bitrate capado desde config (el navegador ya comprime; esto
+            // limita la calidad para contener el peso del archivo).
+            const options = { videoBitsPerSecond: {{ (int) config('wirebug.recording.bitrate', 2000000) }} };
+            if (mime) options.mimeType = mime;
+            this.recorder = new MediaRecorder(stream, options);
             this.recorder.ondataavailable = e => { if (e.data.size) this.recorderChunks.push(e.data); };
             this.recorder.onstop = () => this.finishRecording();
             // El usuario puede cortar desde la barra nativa del navegador

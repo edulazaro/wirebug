@@ -76,7 +76,11 @@ return [
     'recording' => [
         'enabled'     => true,
         'max_seconds' => 90,
-        'max_kb'      => 25600,
+        'max_kb'      => 51200,
+        // Bitrate de vídeo (bits/segundo) pasado al MediaRecorder. El vídeo
+        // ya sale comprimido del navegador (VP9/WebM); esto capa su calidad:
+        // 2 Mbps sobra para leer una UI y deja 90s en ~22MB como máximo.
+        'bitrate'     => 2000000,
     ],
 
     /*
