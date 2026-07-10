@@ -9,7 +9,7 @@ Part of the `wire*` family: themeable through the shared `data-wire-theme` attri
 ## Requirements
 
 - PHP 8.2+
-- Laravel 11 or 12
+- Laravel 11+
 - Alpine.js on the page
 
 ## Installation
