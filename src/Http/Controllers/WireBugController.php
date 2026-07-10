@@ -52,8 +52,12 @@ class WireBugController
             );
         }
 
+        $reporter = $request->user();
+
         $report = BugReport::create([
-            'user_id'         => $request->user()?->getAuthIdentifier(),
+            // getMorphClass() respeta el morph map de la app ('user', etc.).
+            'reporter_type'   => $reporter?->getMorphClass(),
+            'reporter_id'     => $reporter?->getKey(),
             'type'            => $validated['type'],
             'message'         => $validated['message'],
             'steps'           => $validated['steps'] ?? null,

@@ -50,7 +50,7 @@ Pick the theme once on `<html>` (shared with the rest of the family):
 
 ### What is captured automatically
 
-URL, user agent, viewport, locale, authenticated `user_id` and referer. Disable with `'capture_context' => false`.
+URL, user agent, viewport, locale, the authenticated reporter (polymorphic `reporter_type`/`reporter_id`, morph-map aware) and referer. Disable with `'capture_context' => false`.
 
 ### Where everything is stored
 
@@ -63,7 +63,7 @@ use EduLazaro\WireBug\Models\BugReport;
 
 BugReport::new()->latest()->get();   // status = 'new'
 BugReport::ofType('bug')->get();
-$report->user;                        // account that sent it (or null)
+$report->reporter;                    // polymorphic: who sent it (User, Client... or null for guests)
 ```
 
 ### Component props

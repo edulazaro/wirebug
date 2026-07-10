@@ -11,8 +11,9 @@ return new class extends Migration
         Schema::create(config('wirebug.table', 'wirebug_reports'), function (Blueprint $table) {
             $table->id();
 
-            // Sin FK: el paquete no asume el nombre de la tabla de usuarios.
-            $table->unsignedBigInteger('user_id')->nullable()->index();
+            // Quién reporta, polimórfico: cada app decide su modelo (User,
+            // Client...). Respeta el morph map. Null = invitado.
+            $table->nullableMorphs('reporter');
 
             $table->string('type', 32)->index();
             $table->text('message');

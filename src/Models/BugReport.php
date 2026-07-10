@@ -19,15 +19,12 @@ class BugReport extends Model
     }
 
     /**
-     * La cuenta que envió el reporte (null si fue un invitado). Usa el modelo
-     * de usuario configurado en la app consumidora.
+     * Quién envió el reporte (null si fue un invitado). Polimórfico: cada
+     * app decide el modelo (User, Client...). Respeta el morph map.
      */
-    public function user()
+    public function reporter()
     {
-        return $this->belongsTo(
-            config('auth.providers.users.model', \App\Models\User::class),
-            'user_id'
-        );
+        return $this->morphTo('reporter');
     }
 
     public function scopeNew(Builder $query): Builder
