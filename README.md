@@ -1,4 +1,6 @@
-# wirebug
+![Wirebug](art/banner.png)
+
+# Wirebug
 
 Drop-in floating bug/feedback report widget for Laravel apps. A small floating button opens a modal where the user picks a type (bug, suggestion, other) and writes a message. Reports are stored in your database with automatic technical context (URL, user agent, viewport, locale, authenticated user).
 
@@ -101,6 +103,19 @@ php artisan vendor:publish --tag=wirebug-migrations
 
 - `wirebug-sent` is dispatched on `window` after a successful submit, in case the host app wants to toast or track it.
 
+## Sponsors
+
+Wirebug is supported by the following sponsors. Thank you for keeping it growing:
+
+<p>
+  <a href="https://kenodo.com"><img src="art/logo-kenodo.png" width="24" alt="Kenodo"></a>&nbsp;<a href="https://kenodo.com">Kenodo</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://andorradev.com"><img src="art/logo-andorradev.png" width="24" alt="AndorraDev"></a>&nbsp;<a href="https://andorradev.com">AndorraDev</a>
+</p>
+
+## Author
+
+Created by [Edu Lazaro](https://edulazaro.com)
+
 ## License
 
-MIT © Edu Lázaro
+Wirebug is open-sourced software licensed under the [MIT license](LICENSE.md).
