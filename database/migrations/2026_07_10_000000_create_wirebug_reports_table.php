@@ -16,7 +16,11 @@ return new class extends Migration
 
             $table->string('type', 32)->index();
             $table->text('message');
+            $table->text('steps')->nullable();
             $table->string('email')->nullable();
+
+            // Ruta en el disco configurado en 'wirebug.uploads.disk'.
+            $table->string('screenshot_path', 2048)->nullable();
 
             // Contexto capturado automáticamente (config 'capture_context').
             $table->string('url', 2048)->nullable();

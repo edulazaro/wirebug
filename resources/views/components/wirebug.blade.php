@@ -9,6 +9,11 @@
     'typeLabel' => null,
     'messageLabel' => null,
     'messagePlaceholder' => null,
+    'stepsLabel' => null,
+    'stepsPlaceholder' => null,
+    'screenshotLabel' => null,
+    'screenshotButton' => null,
+    'screenshotRemove' => null,
     'emailLabel' => null,
     'emailPlaceholder' => null,
     'send' => null,
@@ -32,6 +37,11 @@
     $typeLabel          = $typeLabel          ?? __('wirebug::wirebug.type_label');
     $messageLabel       = $messageLabel       ?? __('wirebug::wirebug.message_label');
     $messagePlaceholder = $messagePlaceholder ?? __('wirebug::wirebug.message_placeholder');
+    $stepsLabel         = $stepsLabel         ?? __('wirebug::wirebug.steps_label');
+    $stepsPlaceholder   = $stepsPlaceholder   ?? __('wirebug::wirebug.steps_placeholder');
+    $screenshotLabel    = $screenshotLabel    ?? __('wirebug::wirebug.screenshot_label');
+    $screenshotButton   = $screenshotButton   ?? __('wirebug::wirebug.screenshot_button');
+    $screenshotRemove   = $screenshotRemove   ?? __('wirebug::wirebug.screenshot_remove');
     $emailLabel         = $emailLabel         ?? __('wirebug::wirebug.email_label');
     $emailPlaceholder   = $emailPlaceholder   ?? __('wirebug::wirebug.email_placeholder');
     $send               = $send               ?? __('wirebug::wirebug.send');
@@ -55,10 +65,24 @@
     x-data="{
         type: @js($defaultType),
         message: '',
+        steps: '',
         email: '',
+        screenshot: null,
+        screenshotName: '',
         sending: false,
         sent: false,
         error: null,
+        pickScreenshot(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            this.screenshot = file;
+            this.screenshotName = file.name;
+        },
+        removeScreenshot() {
+            this.screenshot = null;
+            this.screenshotName = '';
+            if (this.$refs.screenshotInput) this.$refs.screenshotInput.value = '';
+        },
         open() {
             if (window.Wiremodal) Wiremodal.open('wirebug-report');
         },
@@ -71,7 +95,9 @@
         reset() {
             this.type = @js($defaultType);
             this.message = '';
+            this.steps = '';
             this.email = '';
+            this.removeScreenshot();
             this.sending = false;
             this.sent = false;
             this.error = null;
@@ -81,20 +107,24 @@
             this.sending = true;
             this.error = null;
             try {
+                // FormData (multipart) por la captura adjunta; el navegador
+                // fija solo el Content-Type con su boundary.
+                const data = new FormData();
+                data.append('type', this.type);
+                data.append('message', this.message);
+                if (this.steps.trim()) data.append('steps', this.steps);
+                if (this.email) data.append('email', this.email);
+                if (this.screenshot) data.append('screenshot', this.screenshot);
+                data.append('url', window.location.href);
+                data.append('viewport', window.innerWidth + 'x' + window.innerHeight);
+
                 const response = await fetch(@js(route('wirebug.store')), {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
                         'Accept': 'application/json',
                         'X-CSRF-TOKEN': @js(csrf_token()),
                     },
-                    body: JSON.stringify({
-                        type: this.type,
-                        message: this.message,
-                        email: this.email || null,
-                        url: window.location.href,
-                        viewport: window.innerWidth + 'x' + window.innerHeight,
-                    }),
+                    body: data,
                 });
                 if (!response.ok) throw new Error('wirebug: ' + response.status);
                 this.sent = true;
@@ -155,6 +185,44 @@
                         @keydown.enter.meta.prevent="submit()"
                         @keydown.enter.ctrl.prevent="submit()"
                     ></textarea>
+                </div>
+
+                <div class="wb-field">
+                    <label class="wb-label" for="wb-steps">{{ $stepsLabel }}</label>
+                    <textarea
+                        id="wb-steps"
+                        x-model="steps"
+                        rows="3"
+                        maxlength="5000"
+                        class="wb-textarea"
+                        placeholder="{{ $stepsPlaceholder }}"
+                    ></textarea>
+                </div>
+
+                <div class="wb-field">
+                    <span class="wb-label">{{ $screenshotLabel }}</span>
+                    <div class="wb-file">
+                        <input
+                            type="file"
+                            id="wb-screenshot"
+                            x-ref="screenshotInput"
+                            @change="pickScreenshot($event)"
+                            accept="image/jpeg,image/png,image/gif,image/webp"
+                            class="wb-file-input"
+                        >
+                        <label for="wb-screenshot" class="wb-btn wb-btn-muted wb-file-button">
+                            {{ $screenshotButton }}
+                        </label>
+                        <span x-show="screenshotName" x-text="screenshotName" class="wb-file-name"></span>
+                        <button
+                            type="button"
+                            x-show="screenshot"
+                            @click="removeScreenshot()"
+                            class="wb-file-remove"
+                            aria-label="{{ $screenshotRemove }}"
+                            title="{{ $screenshotRemove }}"
+                        >&times;</button>
+                    </div>
                 </div>
 
                 @if($askEmail)

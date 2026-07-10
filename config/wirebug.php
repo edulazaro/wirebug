@@ -51,6 +51,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Captura de pantalla adjunta
+    |--------------------------------------------------------------------------
+    | La imagen se guarda vía Storage en el disco indicado (cualquiera de
+    | config/filesystems.php de la app: 'local', 's3', un disco R2...). La
+    | fila del reporte almacena solo la ruta. 'max_kb' limita el tamaño.
+    */
+    'uploads' => [
+        'disk'   => 'local',
+        'path'   => 'wirebug',
+        'max_kb' => 5120,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Contexto capturado automáticamente
     |--------------------------------------------------------------------------
     | Además del mensaje, cada reporte guarda contexto técnico sin que el

@@ -43,11 +43,17 @@ Pick the theme once on `<html>` (shared with the rest of the family):
 
 - **Type**: bug / suggestion / other (configurable via `config('wirebug.types')`).
 - **Message**: free text, required, max 5000 chars.
+- **Steps to reproduce**: optional free text.
+- **Screenshot**: optional image attachment (jpg/png/gif/webp, 5MB max by default).
 - **Email**: optional, only shown to guests (authenticated users are already identified). Disable with `'ask_guest_email' => false`.
 
 ### What is captured automatically
 
 URL, user agent, viewport, locale, authenticated `user_id` and referer. Disable with `'capture_context' => false`.
+
+### Where everything is stored
+
+Reports live in the `wirebug_reports` table of your app's database. The screenshot is stored through Laravel's `Storage` on the disk set in `config('wirebug.uploads.disk')` — any disk from your `config/filesystems.php` works the same (`local` server filesystem, `s3`, an S3-compatible R2 disk...). The report row keeps only the file path.
 
 ### Reading the reports
 

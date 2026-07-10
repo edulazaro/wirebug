@@ -125,6 +125,55 @@
     box-shadow: 0 0 0 1px var(--wb-accent);
 }
 
+.wb-file {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+}
+.wb-file-input {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+.wb-file-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.8125rem;
+}
+.wb-file-name {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.8125rem;
+    color: var(--wb-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.wb-file-remove {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    line-height: 1;
+    color: var(--wb-text-muted);
+    background: transparent;
+    border: 0;
+    border-radius: var(--wb-radius);
+    cursor: pointer;
+    transition: color .15s;
+}
+.wb-file-remove:hover {
+    color: var(--wb-text);
+}
+
 .wb-error {
     margin: 0;
     font-size: 0.8125rem;
