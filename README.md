@@ -22,7 +22,7 @@ php artisan migrate
 Import the CSS after wiremodal in your bundle:
 
 ```css
-@import 'edulazaro/wiremodal/resources/css/wiremodal.css';
+@import '../../vendor/edulazaro/wiremodal/resources/css/wiremodal.css';
 @import '../../vendor/edulazaro/wirebug/resources/css/wirebug.css';
 ```
 
